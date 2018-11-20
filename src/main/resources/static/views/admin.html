@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Babulilm - Admin</title>
+    <script src="/js/lib/angular.js"></script>
+    <script src="/js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="/js/app/app.js"></script>
+    <script src="/js/app/AdminController.js"></script>
+    <script src="/js/app/AdminService.js"></script>
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css"/>
+</head>
+<body ng-app="babulilm" ng-cloak>
+<div class="container" ng-controller="AdminController" ng-cloak>
+    <ul class="nav nav-tabs">
+        <li ng-click="showCreateEvent()" ng-class="{active: createEventShown}"><a href="#">Create Event</a></li>
+        <li ng-click="showRemoveEvent()" ng-class="{active: removeEventShown}"><a href="#">Remove Event</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+    <br>
+    <div ng-show="createEventShown">
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input ng-model="eventDto.name" type="text" class="form-control" id="name" placeholder="Name of the event">
+            </div>
+            <div class="form-group">
+                <label for="dateAndTime">Date and Time</label>
+                <input ng-model="eventDto.dateAndTime" type="datetime-local" class="form-control" id="dateAndTime" placeholder="For example, 15-03-2019 20:30:00">
+            </div>
+            <div class="form-group">
+                <label for="type">Type</label>
+                <input ng-model="eventDto.type" type="text" class="form-control" id="type" placeholder="Type of the event">
+            </div>
+            <div class="form-group">
+                <label for="venue">Venue</label>
+                <input ng-model="eventDto.venue" type="text" class="form-control" id="venue" placeholder="Location of the event">
+            </div>
+            <div class="form-group">
+                <label for="desc">Description</label>
+                <textarea ng-model="eventDto.description" type="text" class="form-control" id="desc" placeholder="Description of the event"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="createEvent()">Create Event</button>
+        </form>
+        <br>
+        {{eventCreationMsg}}
+    </div>
+    <div ng-show="removeEventShown">
+        <div class="list-group" ng-show="events">
+            <a href="#" class="list-group-item" ng-repeat="event in events">{{event.name}} <button type="submit" class="btn btn-primary" ng-click="removeEvent(event.id)">Delete Event</button> </a>
+        </div>
+        <div ng-show="deleteMsg">
+            {{deleteMsg}}
+        </div>
+    </div>
+</div>
+</body>
+</html>

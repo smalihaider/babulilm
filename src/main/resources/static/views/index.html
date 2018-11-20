@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Babulilm - Home</title>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="js/app/app.js"></script>
+    <script src="js/app/UserController.js"></script>
+    <script src="js/app/EventService.js"></script>
+    <link rel="stylesheet" href="css/lib/bootstrap.min.css"/>
+</head>
+<body ng-app="babulilm" ng-cloak>
+<div class="container" ng-controller="UserController">
+    <ul class="nav nav-tabs">
+        <li ng-click="$event.preventDefault();showHome()" ng-class="{active: homeShown}"><a href="#">Home</a></li>
+        <li ng-click="$event.preventDefault();showEvents()" ng-class="{active: eventsShown}"><a href="#">Events</a></li>
+        <li><a href="/login">Login</a></li>
+    </ul>
+    <div ng-show="homeShown">
+        BABULILM HOME PAGE - MAY CARRY NEWS
+    </div>
+    <div ng-show="eventsShown">
+        <div class="list-group" ng-show="events">
+            <a href="#" ng-click="$event.preventDefault(); showEventDetails(event.id)" class="list-group-item list-group-item-action" ng-repeat="event in events">{{event.name}}</a>
+        </div>
+        <div ng-show="eventsCallReturned && events.length == 0">
+            No events found
+        </div>
+    </div>
+    <div ng-show="eventDetailsShown">
+        <div class="media">
+            <img class="mr-3" src="..." alt="Generic placeholder image">
+            <div class="media-body" ng-show="eventsCallReturned">
+                <h5 class="mt-0">{{selectedEvent.name}}</h5>
+                {{selectedEvent.description}}<br>
+                Type: {{selectedEvent.type}}<br>
+                Time: {{selectedEvent.dateAndTime}}<br>
+                Venue: {{selectedEvent.venue}}<br>
+                Speakers: {{selectedEvent.speakers}}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
